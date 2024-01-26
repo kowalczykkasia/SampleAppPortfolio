@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SampleApp</string>
+    <string name="something_went_wrong">Something went wrong!</string>
+    <string name="cannot_load_data_description">Cannot load data! \nPlease try later</string>
+</resources>
