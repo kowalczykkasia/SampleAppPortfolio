@@ -60,13 +60,14 @@ class HomeFragment : Fragment() {
             binding.apply {
                 shimmerLayout.listShimmer.stopShimmer()
                 flShimmer.gone()
-                emptyState.goneIf(it.items.isNotEmpty())
+                emptyState.goneIf(it?.items?.isEmpty() == false)
             }
-            adapter.submitList(it.items)
+            adapter.submitList(it?.items)
         }.launchIn(lifecycleScope)
         viewModel.error.onEach {
             binding.apply {
                 rvList.gone()
+                flShimmer.gone()
                 emptyState.visible()
             }
         }.launchIn(lifecycleScope)

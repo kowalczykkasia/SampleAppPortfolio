@@ -13,17 +13,17 @@ class HomeViewModel @Inject constructor(
     private val repository: PhotosRepository
 ) : BaseViewModel() {
 
-    private val _responseList = mutableSharedFlow<PhotosResponseModel>()
-    val responseList: SharedFlow<PhotosResponseModel>
+    private val _responseList = mutableSharedFlow<PhotosResponseModel?>()
+    val responseList: SharedFlow<PhotosResponseModel?>
         get() = _responseList
 
     init {
         launch {
             repository.getPhotos().collect {
-                it.firstOrNull()?.let {
+                _responseList.emit(it.firstOrNull()?.let {
                     it.items = it.items.sortedBy { it.dateTaken }
-                    _responseList.emit(it)
-                }
+                    it
+                })
             }
         }
     }
